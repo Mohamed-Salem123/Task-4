@@ -4,6 +4,7 @@ let tasks = JSON.parse(localStorage.getItem('command_center_tasks')) || [];
 // DOM References
 const taskForm = document.getElementById('task-form');
 const taskTitle = document.getElementById('task-title');
+const taskDescription = document.getElementById('task-description');
 const taskCategory = document.getElementById('task-category');
 const taskPriority = document.getElementById('task-priority');
 const searchInput = document.getElementById('search-input');
@@ -30,6 +31,7 @@ function handleAddTask(e) {
   const newTask = {
     id: Date.now().toString(),
     title: taskTitle.value.trim(),
+    description: taskDescription.value.trim(),
     category: taskCategory.value,
     priority: taskPriority.value,
     status: 'todo'
@@ -75,7 +77,8 @@ function renderTasks() {
 
   // Filter Logic
   const filteredTasks = tasks.filter(task => {
-    const matchesSearch = task.title.toLowerCase().includes(searchTerm);
+    const searchableText = `${task.title} ${task.description || ''}`.toLowerCase();
+    const matchesSearch = searchableText.includes(searchTerm);
     const matchesCategory = selectedCategory === 'All' || task.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -109,6 +112,7 @@ function createTaskCard(task) {
       <span class="task-title">${escapeHtml(task.title)}</span>
       <span class="priority-pill priority-${task.priority.toLowerCase()}">${task.priority}</span>
     </div>
+    ${task.description ? `<p class="task-description">${escapeHtml(task.description)}</p>` : ''}
     <div class="card-meta">
       📂 ${task.category}
     </div>

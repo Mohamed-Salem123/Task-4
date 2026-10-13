@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Command Center - Task Manager</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="command-shell">
+    
+    <!-- Top Action Bar & Real-time Metrics -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="logo-mark"></div>
+        <h1>Command Center</h1>
+      </div>
+
+      <div class="search-and-filter">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" placeholder="Quick search tasks..." />
+        </div>
+        <select id="category-filter">
+          <option value="All">All Categories</option>
+          <option value="Development">Development</option>
+          <option value="Design">Design</option>
+          <option value="Marketing">Marketing</option>
+        </select>
+      </div>
+
+      <div class="metrics-pill">
+        <div class="metric">
+          <span>Active:</span>
+          <strong id="metric-active">0</strong>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric">
+          <span>Done:</span>
+          <strong id="metric-completed">0</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace (Split Creator Panel + Stage Board) -->
+    <div class="workspace">
+      
+      <!-- Docked Task Creator (Left Panel) -->
+      <aside class="creator-panel">
+        <div class="panel-header">
+          <h2>Create New Task</h2>
+          <p>Add items to your workflow pipeline.</p>
+        </div>
+
+        <form id="task-form">
+          <div class="field-group">
+            <label for="task-title">Task Title</label>
+            <input type="text" id="task-title" placeholder="What needs to be done?" required />
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="task-category">Category</label>
+              <select id="task-category" required>
+                <option value="" disabled selected>Category</option>
+                <option value="Development">Development</option>
+                <option value="Design">Design</option>
+                <option value="Marketing">Marketing</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="task-priority">Priority</label>
+              <select id="task-priority" required>
+                <option value="" disabled selected>Priority</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-create">+ Deploy Task</button>
+        </form>
+      </aside>
+
+      <!-- 3 Kanban Stages (Right Panel) -->
+      <main class="board-stages">
+        
+        <!-- Stage 1: To Do -->
+        <section class="stage-column" data-status="todo">
+          <div class="stage-header">
+            <div class="stage-title">
+              <span class="indicator indicator-todo"></span>
+              <h2>To Do</h2>
+            </div>
+            <span class="count-badge" id="count-todo">0</span>
+          </div>
+          <div class="task-list" id="list-todo"></div>
+        </section>
+
+        <!-- Stage 2: In Progress -->
+        <section class="stage-column" data-status="in-progress">
+          <div class="stage-header">
+            <div class="stage-title">
+              <span class="indicator indicator-progress"></span>
+              <h2>In Progress</h2>
+            </div>
+            <span class="count-badge" id="count-in-progress">0</span>
+          </div>
+          <div class="task-list" id="list-in-progress"></div>
+        </section>
+
+        <!-- Stage 3: Completed -->
+        <section class="stage-column" data-status="completed">
+          <div class="stage-header">
+            <div class="stage-title">
+              <span class="indicator indicator-completed"></span>
+              <h2>Completed</h2>
+            </div>
+            <span class="count-badge" id="count-completed">0</span>
+          </div>
+          <div class="task-list" id="list-completed"></div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
